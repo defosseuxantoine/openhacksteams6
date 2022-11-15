@@ -1,0 +1,11 @@
+
+az group create --name TripsInsight --location northeurope
+
+az aks create -g TripsInsight -n myAKSCluster2 \
+ --enable-managed-identity \
+ --enable-msi-auth-for-monitoring  \
+ --generate-ssh-keys \
+ --attach-acr registrybrz6946
+
+az aks get-credentials --resource-group TripInsight --name myAKSCluster2
+
