@@ -12,7 +12,7 @@ CREATE USER [mydriving_poi_user] FROM LOGIN [mydriving_poi_user];
 ALTER ROLE db_owner ADD MEMBER [mydriving_poi_user]
 go
 
-az acr login -n registrybrz6946 -u registrybrz6946 -p aMOCqI43BcMOWfj0WklAt6+saWvA3ct9
+az acr login -n registrybrz6946 -u registrybrz6946
 docker run --name dataload --network driving -e SQLFQDN=sql1 -e SQLUSER=mydriving_poi_user -e SQLPASS=Test1234*$ -e SQLDB=mydrivingDB registrybrz6946.azurecr.io/dataload:1.0
 
 cd /src/poi
@@ -21,3 +21,19 @@ docker build -f .\Dockerfile_poi -t tripinsights/poi:1.0 .
 docker run -d -p 8080:80 --network driving --name poi -e "SQL_PASSWORD=Test1234*$" -e "SQL_USER=mydriving_poi_user"  -e "SQL_SERVER=sql1" -e "ASPNETCORE_ENVIRONMENT=Local" tripinsights/poi:1.0
 
 docker pull registrybrz6946.azurecr.io/dataload:1.0
+
+# share with acr
+docker build -f Dockerfile_poi -t "registrybrz6946.azurecr.io/tripinsights/poi:1.0" ..\src\poi\
+docker push registrybrz6946.azurecr.io/tripinsights/poi:1.0
+
+docker build -f Dockerfile_trip_api -t "registrybrz6946.azurecr.io/tripinsights/trip_api:1.0" ..\src\trips\
+docker push registrybrz6946.azurecr.io/tripinsights/trip_api:1.0
+
+docker build -f Dockerfile_trip_viewer -t "registrybrz6946.azurecr.io/tripinsights/trip_viewer:1.0" ..\src\tripviewer\
+docker push registrybrz6946.azurecr.io/tripinsights/trip_viewer:1.0
+
+docker build -f Dockerfile_trip_user_api -t "registrybrz6946.azurecr.io/tripinsights/user_api:1.0" ..\src\user-java\
+docker push registrybrz6946.azurecr.io/tripinsights/user_api:1.0
+
+docker build -f Dockerfile_user_profile -t "registrybrz6946.azurecr.io/tripinsights/user_profile:1.0" ..\src\userprofile\
+docker push registrybrz6946.azurecr.io/tripinsights/user_profile:1.0
