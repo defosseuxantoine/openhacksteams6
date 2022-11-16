@@ -19,9 +19,15 @@ spec:
         image: registrybrz6946.azurecr.io/tripinsights/userapi:1.0
         env :
         - name: SQL_USER
-          value: "sqladminbRz6946"
+          valueFrom:
+            secretKeyRef:
+              name: mysecret
+              key: username
         - name: SQL_PASSWORD
-          value: "hV5nm0Fp1"
+          valueFrom:
+            secretKeyRef:
+              name: mysecret
+              key: password
         - name: SQL_SERVER
           value: "sqlserverbrz6946.database.windows.net"
         

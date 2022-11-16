@@ -19,13 +19,19 @@ spec:
         image: registrybrz6946.azurecr.io/tripinsights/trip_api:1.0
         env:
         - name: SQL_USER
-          value: "sqladminbRz6946"
+          valueFrom:
+            secretKeyRef:
+              name: mysecret
+              key: username
         - name: SQL_PASSWORD
-          value: "hV5nm0Fp1"
+          valueFrom:
+            secretKeyRef:
+              name: mysecret
+              key: password
         - name: SQL_SERVER
           value: "sqlserverbrz6946.database.windows.net"
         ports:
-        - containerPort: 6379
+        - containerPort: 80
           name: redis
 ---
 apiVersion: v1
@@ -34,6 +40,6 @@ metadata:
   name: trip-api
 spec:
   ports:
-  - port: 6379
+  - port: 80
   selector:
     app: trip-api
