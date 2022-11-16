@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userprofil
+  labels:
+    app: userprofil
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: userprofil
+  template:
+    metadata:
+      labels:
+        app: userprofil
+    spec:
+      containers:
+      - name: userprofil
+        image: registrybrz6946.azurecr.io/tripinsights/userprofile:1.0
+        env :
+        - name: SQL_USER
+          value: "sqladminbRz6946"
+        - name: SQL_PASSWORD
+          value: "hV5nm0Fp1"
+        - name: SQL_SERVER
+          value: "sqlserverbrz6946.database.windows.net"
+        
+        ports:
+        - containerPort: 80
+
+            
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-userprofil
+
+  labels:
+    app: userprofil
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+  selector:
+    app: userprofil
