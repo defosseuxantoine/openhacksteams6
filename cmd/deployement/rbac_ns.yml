@@ -42,8 +42,8 @@ metadata:
   name: api-dev-rolebinding
   namespace: api
 subjects:
-- kind: User
-  name: apidev@msftopenhack7003ops.onmicrosoft.com
+- kind: Group
+  name: 4493a5c8-b4ef-4534-b898-3e3806c86e9c
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: Role
@@ -55,8 +55,8 @@ metadata:
   name: api-dev-rolebinding
   namespace: web
 subjects:
-- kind: User
-  name: apidev@msftopenhack7003ops.onmicrosoft.com
+- kind: Group
+  name: 4493a5c8-b4ef-4534-b898-3e3806c86e9c
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: Role
@@ -68,8 +68,8 @@ metadata:
   name: web-dev-rolebinding
   namespace: web
 subjects:
-- kind: User
-  name: webdev@msftopenhack7003ops.onmicrosoft.com
+- kind: Group
+  name: 2b3b57cd-6f01-4ed4-b02b-4dd9ad125810
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: Role
@@ -81,8 +81,8 @@ metadata:
   name: web-dev-rolebinding
   namespace: web
 subjects:
-- kind: User
-  name: webdev@msftopenhack7003ops.onmicrosoft.com
+- kind: Group
+  name: 2b3b57cd-6f01-4ed4-b02b-4dd9ad125810
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: Role
