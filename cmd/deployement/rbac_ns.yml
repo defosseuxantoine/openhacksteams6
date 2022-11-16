@@ -2,25 +2,90 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   namespace: api
-  name: api-dev
+  name: api-dev-role
 rules:
-- apiGroups: [""] # "" indicates the core API group
-  resources: ["pods"]
+- apiGroups: [""]
+  resources: ["pods","services","deployments"]
+  verbs: ["*"]
+  
+kind: Role
+metadata:
+  namespace: web
+  name: api-dev-role
+rules:
+- apiGroups: [""]
+  resources: ["pods","services","deployments"]
+  verbs: ["get", "watch", "list"]
+  
+kind: Role
+metadata:
+  namespace: web
+  name: web-dev-role
+rules:
+- apiGroups: [""]
+  resources: ["pods","services","deployments"]
+  verbs: ["*"]
+  
+kind: Role
+metadata:
+  namespace: api
+  name: web-dev-role
+rules:
+- apiGroups: [""]
+  resources: ["pods","services","deployments"]
   verbs: ["get", "watch", "list"]
 
-# api-dev View access to Web resources, Edit access to API resources
-# You need to already have a Role named "pod-reader" in that namespace.
+---
+
 kind: RoleBinding
 metadata:
-  name: read-pods
-  namespace: default
+  name: api-dev-rolebinding
+  namespace: api
 subjects:
-# You can specify more than one "subject"
 - kind: User
-  name: jane # "name" is case sensitive
+  name: apidev@msftopenhack7003ops.onmicrosoft.com
   apiGroup: rbac.authorization.k8s.io
 roleRef:
-  # "roleRef" specifies the binding to a Role / ClusterRole
-  kind: Role #this must be Role or ClusterRole
-  name: pod-reader # this must match the name of the Role or ClusterRole you wish to bind to
+  kind: Role
+  name: api-dev-role
   apiGroup: rbac.authorization.k8s.io  
+
+kind: RoleBinding
+metadata:
+  name: api-dev-rolebinding
+  namespace: web
+subjects:
+- kind: User
+  name: apidev@msftopenhack7003ops.onmicrosoft.com
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: api-dev-role
+  apiGroup: rbac.authorization.k8s.io  
+
+kind: RoleBinding
+metadata:
+  name: web-dev-rolebinding
+  namespace: web
+subjects:
+- kind: User
+  name: webdev@msftopenhack7003ops.onmicrosoft.com
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: web-dev-role
+  apiGroup: rbac.authorization.k8s.io  
+
+kind: RoleBinding
+metadata:
+  name: web-dev-rolebinding
+  namespace: web
+subjects:
+- kind: User
+  name: webdev@msftopenhack7003ops.onmicrosoft.com
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: web-dev-role
+  apiGroup: rbac.authorization.k8s.io  
+  
