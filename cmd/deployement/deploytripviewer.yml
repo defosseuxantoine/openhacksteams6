@@ -19,3 +19,18 @@ spec:
         image: registrybrz6946.azurecr.io/tripinsights/trip_viewer:1.0
         ports:
         - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: front-tripwiewer
+  labels:
+    app: tripwiewer
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+  selector:
+    app: tripwiewer
+  type: LoadBalancer
