@@ -32,10 +32,10 @@ metadata:
   labels:
     app: tripwiewer
 spec:
+  type: ClusterIP
   ports:
   - port: 80
     targetPort: 80
     protocol: TCP
   selector:
     app: tripwiewer
-  type: LoadBalancer
