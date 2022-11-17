@@ -14,6 +14,28 @@ spec:
             name: trip-api
             port:
               number: 80
+      - path: /api/docs/trips
+        pathType: Prefix
+        backend:
+          service:
+            name: trip-api
+            port:
+              number: 80
+      - path: /api/json
+        pathType: Prefix
+        backend:
+          service:
+            name: trip-api
+            port:
+              number: 80
+      - path: /metrics
+        pathType: Prefix
+        backend:
+          service:
+            name: trip-api
+            port:
+              number: 80
+              
       - path: /api/user-java
         pathType: Prefix
         backend:
@@ -21,6 +43,35 @@ spec:
             name: svc-userapi
             port:
               number: 80
+      - path: /api/docs/user-java
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-userapi
+            port:
+              number: 80
+      - path: /api/documentation/user-java
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-userapi
+            port:
+              number: 80
+      - path: /api/api-docs
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-userapi
+            port:
+              number: 80
+      - path: /api/metrics
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-userapi
+            port:
+              number: 80
+              
       - path: /api/user
         pathType: Prefix
         backend:
@@ -28,6 +79,21 @@ spec:
             name: svc-userprofil
             port:
               number: 80
+      - path: /api/docs/user
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-userprofil
+            port:
+              number: 80
+      - path: /metrics
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-userprofil
+            port:
+              number: 80
+              
       - path: /api/poi
         pathType: Prefix
         backend:
