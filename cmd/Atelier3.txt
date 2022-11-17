@@ -1,0 +1,36 @@
+az login
+
+#webdev@msftopenhack7003ops.onmicrosoft.com
+#Mufu0764
+
+#apidev@msftopenhack7003ops.onmicrosoft.com
+#Rono8356
+
+az aks get-credentials --resource-group TripsInsight --name myAKSClusterProdAAD
+
+#a faire avec compte hacker
+
+kubectl get clusterroles
+kubectl edit clusterroles edit
+
+-----------------------
+
+# a faire avec compte api 
+kubectl get pods -n api
+
+# devrait fonctionner
+kubectl create secret generic toto --from-literal toto=tutu -n api
+
+# ne devrait pas fonctionner
+kubectl create secret generic toto --from-literal toto=tutu -n web
+
+--------------------------
+
+# a faire avec compte web
+kubectl get pods -n web
+
+# devrait fonctionner
+kubectl create secret generic toto --from-literal toto=tutu -n web
+
+# ne devrait pas fonctionner
+kubectl create secret generic toto --from-literal toto=tutu -n api
