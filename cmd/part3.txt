@@ -1,0 +1,19 @@
+
+az aks create -g TripsInsight -n myAKSClusterProdAAD --enable-managed-identity --network-plugin azure --vnet-subnet-id /subscriptions/d47ffa85-a7bf-48fd-8d95-ccd2cbf5c42a/resourceGroups/teamResources/providers/Microsoft.Network/virtualNetworks/vnet/subnets/aks-subnet --enable-aad --aad-admin-group-object-ids a2496dcd-6683-43ea-bcf9-2646a2e495e1   --generate-ssh-keys --attach-acr registrybrz6946
+
+
+az aks get-credentials --resource-group TripInsight --name myAKSClusterProdAAD
+
+kubectl describe pod trip-api
+
+
+
+[14:29] stephane.proust (Invité)
+
+--vnet-subnet-id /subscriptions/d47ffa85-a7bf-48fd-8d95-ccd2cbf5c42a/resourceGroups/teamResources/providers/Microsoft.Network/virtualNetworks/vnet \
+ like 1
+
+[14:32] stephane.proust (Invité)
+--enable-aad --aad-admin-group-object-ids <id> [--aad-tenant-id <id>]
+
+/subscriptions/d47ffa85-a7bf-48fd-8d95-ccd2cbf5c42a/resourceGroups/teamResources/providers/Microsoft.Network/virtualNetworks/vnet/subnets/vm-subnet

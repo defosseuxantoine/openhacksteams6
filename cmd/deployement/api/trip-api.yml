@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trip-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: trip-api
+  template:
+    metadata:
+      labels:
+        app: trip-api
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: trip-api
+        image: registrybrz6946.azurecr.io/tripinsights/trip_api:1.0
+        env:
+        - name: SQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mysecret
+              key: username
+        - name: SQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysecret
+              key: password
+        - name: SQL_SERVER
+          value: "sqlserverbrz6946.database.windows.net"
+        ports:
+        - containerPort: 80
+          name: redis
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: trip-api
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: trip-api
